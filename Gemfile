@@ -67,3 +67,6 @@ group :test do
   gem 'webdrivers'
 end
 
+# Additional gems
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'

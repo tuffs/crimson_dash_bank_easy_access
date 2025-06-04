@@ -4,6 +4,6 @@ module ApplicationHelper
   end
 
   def app_subtitle
-    "Dashers Seeking Diverse Payment Solutions"
+    "Better Payouts and Financial Freedom"
   end
 end
