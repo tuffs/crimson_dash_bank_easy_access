@@ -70,3 +70,4 @@ end
 # Additional gems
 gem 'jsbundling-rails'
 gem 'cssbundling-rails'
+gem "devise", "~> 4.9"

@@ -9,10 +9,13 @@
   <%= javascript_importmap_tags %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  <meta name="turbo-cache-control" content="no-cache">
 </head>
 
 <body>
-  <%= render "shared/header" %> <div>
+  <%= render "shared/header" %>
+  <%= render "shared/notifications" %>
+  <div>
     <%= yield %>
   </div>
 </body>
