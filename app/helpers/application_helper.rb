@@ -1,5 +1,9 @@
 module ApplicationHelper
   def app_name
-    "Dasher OpenBanking Coalition"
+    "Honest DasherPay"
+  end
+
+  def app_subtitle
+    "Dashers Seeking Diverse Payment Solutions"
   end
 end
