@@ -6,7 +6,7 @@ RSpec.describe "Home Page (static#index)", type: :feature do
     visit root_path
   end
 
-  describe 'title' do
+  describe 'Header' do
     it 'Header DIV' do
       expect(page).to have_css('div#header')
     end
