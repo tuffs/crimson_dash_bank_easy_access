@@ -7,7 +7,6 @@ RSpec.describe "Home Page (static#index)", type: :feature do
   end
 
   describe 'title' do
-
     it 'has a Header DIV' do
       expect(page).to have_css('div#header')
     end
@@ -19,7 +18,6 @@ RSpec.describe "Home Page (static#index)", type: :feature do
     it 'shows the App Subtitle on the Home Page' do
       expect(page).to have_content(app_subtitle)
     end
-
   end
 
   describe 'content' do
