@@ -1,6 +1,7 @@
 <div class="min-h-screen flex items-center justify-center bg-[#F5E6C8] font-sans mt-16">
   <div class="bg-white/70 rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300 p-8 w-full max-w-md">
     <h2 class="text-2xl font-bold text-[#E4572E] mb-6 text-center font-['Roboto','Open Sans',Arial,sans-serif]" style="letter-spacing:-0.1rem;">Sign Up</h2>
+
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
