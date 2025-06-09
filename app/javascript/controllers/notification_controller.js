@@ -15,6 +15,7 @@ export default class extends Controller {
   }
 
   dismiss() {
+    event.stopImmediatePropagation();
     this.fadeOut();
   }
 

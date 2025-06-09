@@ -2,3 +2,9 @@
   <h1 class="site_title text-4xl font-bold text-center mt-10"><%= app_name %></h1>
   <h3 class="site_subtitle text-center"><%= app_subtitle %></h3>
 </div>
+
+<% if user_signed_in? %>
+  <div class="text-center w-[100%] mt-4">
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, :class => "text-xs text-red-500" %>
+  </div>
+<% end %>
