@@ -1,2 +1,4 @@
+import "jquery"
+import "parsleyjs"
 import "@hotwired/turbo-rails"
-import "./controllers"  // Changed from "controllers"
+import "./controllers"

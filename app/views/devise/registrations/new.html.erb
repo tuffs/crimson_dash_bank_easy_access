@@ -2,48 +2,120 @@
   <div class="bg-white/70 rounded-lg shadow-md hover:shadow-2xl transition-shadow duration-300 p-8 w-full max-w-md">
     <h2 class="text-2xl font-bold text-[#E4572E] mb-6 text-center font-['Roboto','Open Sans',Arial,sans-serif]" style="letter-spacing:-0.1rem;">Sign Up</h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { 
+      data: { 
+        controller: "parsley",
+        parsley_validate_on: "input blur",
+        parsley_errors_container: ".parsley-error-container"
+      } 
+    }) do |f| %>
 
-    <div class="mb-4">
-      <%= f.label :first_name, class: "block text-[#4A4E69] font-semibold mb-1" %>
-      <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 bg-white focus:ring-[#E4572E]" %>
-    </div>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div class="mb-4">
-      <%= f.label :last_name, class: "block text-[#4A4E69] font-semibold mb-1" %>
-      <%= f.text_field :last_name, autocomplete: "family-name", class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]" %>
-    </div>
+      <!-- First Name -->
+      <div class="mb-4">
+        <%= f.label :first_name, class: "block text-[#4A4E69] font-semibold mb-1" %>
+        <%= f.text_field :first_name, 
+              autofocus: true, 
+              autocomplete: "given-name", 
+              class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 bg-white focus:ring-[#E4572E]",
+              required: true,
+              data: { parsley_required_message: "First name is required" } %>
+        <div class="parsley-error-container text-red-600 text-sm mt-1"></div>
+      </div>
 
-    <div class="mb-4">
-      <%= f.label :username, class: "block text-[#4A4E69] font-semibold mb-1" %>
-      <%= f.text_field :username, autocomplete: "username", class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]" %>
-    </div>
+      <!-- Last Name -->
+      <div class="mb-4">
+        <%= f.label :last_name, class: "block text-[#4A4E69] font-semibold mb-1" %>
+        <%= f.text_field :last_name, 
+              autocomplete: "family-name", 
+              class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]" %>
+      </div>
 
-    <div class="mb-4">
-      <%= f.label :email, class: "block text-[#4A4E69] font-semibold mb-1" %>
-      <%= f.email_field :email, autocomplete: "email", class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]" %>
-    </div>
+      <!-- Username (Unique) -->
+      <div class="mb-4">
+        <%= f.label :username, class: "block text-[#4A4E69] font-semibold mb-1" %>
+        <%= f.text_field :username, 
+              autocomplete: "username", 
+              class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]",
+              required: true,
+              data: { 
+                parsley_remote: check_username_users_path,
+                parsley_remote_message: "Username already taken",
+                parsley_trigger: "focusout",
+                parsley_required_message: "Username is required"
+              } %>
+        <div class="parsley-error-container text-red-600 text-sm mt-1"></div>
+      </div>
 
-    <div class="mb-4">
-      <%= f.label :password, class: "block text-[#4A4E69] font-semibold mb-1" %>
-      <% if @minimum_password_length %>
-      <em class="text-xs text-gray-500">(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %>
-      <%= f.password_field :password, autocomplete: "new-password", class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]" %>
-    </div>
+      <!-- Email (Unique + Valid Format) -->
+      <div class="mb-4">
+        <%= f.label :email, class: "block text-[#4A4E69] font-semibold mb-1" %>
+        <%= f.email_field :email, 
+              autocomplete: "email", 
+              class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]",
+              required: true,
+              data: { 
+                parsley_type: "email",
+                parsley_type_message: "Must be a valid email",
+                parsley_remote: check_email_users_path,
+                parsley_remote_message: "Email already taken",
+                parsley_trigger: "focusout",
+                parsley_required_message: "Email is required"
+              } %>
+        <div class="parsley-error-container text-red-600 text-sm mt-1"></div>
+      </div>
 
-    <div class="mb-6">
-      <%= f.label :password_confirmation, class: "block text-[#4A4E69] font-semibold mb-1" %>
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]" %>
-    </div>
+      <!-- Password -->
+      <div class="mb-4">
+        <%= f.label :password, class: "block text-[#4A4E69] font-semibold mb-1" %>
+        <% if @minimum_password_length %>
+          <em class="text-xs text-gray-500">(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <%= f.password_field :password, 
+              autocomplete: "new-password", 
+              class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]",
+              required: true,
+              data: { 
+                parsley_minlength: @minimum_password_length,
+                parsley_minlength_message: "Password too short (min #{@minimum_password_length} chars)",
+                parsley_required_message: "Password is required"
+              } %>
+        <div class="parsley-error-container text-red-600 text-sm mt-1"></div>
+      </div>
 
-    <div class="flex justify-center">
-      <%= f.submit "Sign up", class: "bg-[#E4572E] hover:bg-[#d1461c] text-white font-bold py-2 px-6 rounded transition-colors duration-200" %>
-    </div>
+      <!-- Password Confirmation -->
+      <div class="mb-6">
+        <%= f.label :password_confirmation, class: "block text-[#4A4E69] font-semibold mb-1" %>
+        <%= f.password_field :password_confirmation, 
+              autocomplete: "new-password", 
+              class: "w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#E4572E]",
+              required: true,
+              data: { 
+                parsley_equalto: "#user_password",
+                parsley_equalto_message: "Passwords must match",
+                parsley_required_message: "Please confirm your password"
+              } %>
+        <div class="parsley-error-container text-red-600 text-sm mt-1"></div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-center">
+        <%= f.submit "Sign up", 
+              class: "bg-[#E4572E] hover:bg-[#d1461c] text-white font-bold py-2 px-6 rounded transition-colors duration-200",
+              data: { parsley_trigger: "submit" } %>
+      </div>
     <% end %>
+
     <div class="mt-6 text-center">
       <%= render "devise/shared/links" %>
     </div>
   </div>
 </div>
+
+<!-- Initialize Parsley -->
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    $('form[data-controller="parsley"]').parsley();
+  });
+</script>

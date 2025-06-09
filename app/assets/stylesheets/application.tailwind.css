@@ -37,3 +37,13 @@ p {
   font-size: 1.222rem;
   line-height: 1.85rem;
 }
+
+/* Valid Fields */
+input:valid:not(:placeholder-shown) {
+  @apply border-green-500 focus:ring-green-500;
+}
+
+/* Invalid Fields */
+input:invalid:not(:placeholder-shown) {
+  @apply border-red-500 focus:ring-red-500;
+}
