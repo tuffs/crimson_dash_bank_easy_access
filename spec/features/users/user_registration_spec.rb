@@ -14,7 +14,12 @@ RSpec.feature "User Sign Up", type: :feature do
       # Test email uniqueness
       create(:user, email: "taken@example.com")
       fill_in 'Email', with: "taken@example.com"
-      expect(page).to have_content("Email already taken")
+      fill_in 'First name', with: "John" # Required field
+      fill_in 'Last name', with: "Doe"   # Required field
+      fill_in 'Password', with: "password123" # Required field
+      fill_in 'Password confirmation', with: "password123" # Required field
+      click_button 'Sign up'
+      expect(page).to have_content("Email has already been taken")
     end
   end
 end
